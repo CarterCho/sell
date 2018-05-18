@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <appender name="consolelog" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>
+                %d @@-@@ %msg%n
+            </pattern>
+        </layout>
+    </appender> //控制台
+    <appender name="fileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>
+                %msg%n
+            </pattern>
+        </encoder>
+        <!--滚动策略 按时间滚动-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/Users/mac/eclipse-workspace/sell/log/info.%d.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>//info文件
+    <appender name="fileErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <pattern>
+                %msg%n
+            </pattern>
+        </encoder>
+        <!--滚动策略 按时间滚动-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/Users/mac/eclipse-workspace/sell/log/error.%d.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>//info文件
+    <root level="info">
+        <appender-ref ref="consolelog"/> //控制台使用上面的配置好的格式
+        <appender-ref ref="fileInfoLog"/> //文件使用的格式
+        <appender-ref ref="fileErrorLog"/> //文件使用的格式
+    </root>
+</configuration>
